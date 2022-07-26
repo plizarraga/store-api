@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   # root "articles#index"
-  resources :products, only: [:index, :show]
-  resources :product_brands, only: [:index, :show]
-  resources :product_types, only: [:index, :show]
+  resources :products, only: %i[index show]
+  resources :product_brands, only: %i[index show]
+  resources :product_types, only: %i[index show]
 end

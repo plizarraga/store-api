@@ -25,6 +25,7 @@
 #         name: Faker::Commerce::unique.product_name, 
 #         description: Faker::Lorem.paragraph, 
 #         price: Faker::Commerce.price(range: 5..500.0), 
+#         picture_url: "https://source.unsplash.com/random/200x200?sig=1",
 #         product_type: ProductType.find(ProductType.pluck(:id).sample), 
 #         product_brand: ProductBrand.find(ProductBrand.pluck(:id).sample)
 #     )
