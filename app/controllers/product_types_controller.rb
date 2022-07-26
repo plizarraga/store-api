@@ -2,17 +2,17 @@ class ProductTypesController < ApplicationController
   before_action :set_product_type, only: %i[ show update ]
 
   def index
-    @products = ProductType.all
+    @product_types = ProductType.all
 
-    render json: @products
+    render json: ProductTypeSerializer.new(@product_types)
   end
 
   def show
-    render json: @product
+    render json: ProductTypeSerializer.new(@product_type)
   end
 
   private
     def set_product_type
-      @product = ProductType.find(params[:id])
+      @product_type = ProductType.find(params[:id])
     end
 end

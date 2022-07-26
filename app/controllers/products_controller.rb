@@ -5,12 +5,12 @@ class ProductsController < ApplicationController
   def index
     @products = Product.all
 
-    render json: @products
+    render json: ProductSerializer.new(@products)
   end
 
   # GET /products/1
   def show
-    render json: @product
+    render json: ProductSerializer.new(@product)
   end
 
   # POST /products
