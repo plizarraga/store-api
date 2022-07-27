@@ -1,5 +1,6 @@
 class Product < ApplicationRecord
-  # scope :c_order, -> { order(name: :asc) }
+  scope :by_brand_id, ->(brand_id) { where(product_brand_id: brand_id) if brand_id.present? }
+  scope :by_type_id, ->(type_id) { where(product_type_id:type_id) if type_id.present? } 
 
   # Relationships
   belongs_to :product_type
@@ -8,5 +9,11 @@ class Product < ApplicationRecord
   # Validations
   validates :name, presence: true  
   validates :description, presence: true  
-
+  
+  ORDER_BY = {
+    nameAsc: "name ASC",
+    nameDesc: "name DESC",
+    priceAsc: "price ASC",
+    priceDesc: "price DESC",
+  }
 end
