@@ -1,4 +1,4 @@
-class Api::V1::ProductTypesController < ApplicationController
+class Api::V1::ProductTypesController < Api::V1::BaseController
   before_action :set_product_type, only: %i[ show update ]
 
   def index

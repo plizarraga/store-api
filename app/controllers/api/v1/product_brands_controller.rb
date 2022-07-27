@@ -1,4 +1,4 @@
-class Api::V1::ProductBrandsController < ApplicationController
+class Api::V1::ProductBrandsController < Api::V1::BaseController
   before_action :set_product_brand, only: %i[ show update ]
 
   def index
