@@ -1,14 +1,14 @@
-class ProductBrandsController < ApplicationController
+class Api::V1::ProductBrandsController < ApplicationController
   before_action :set_product_brand, only: %i[ show update ]
 
   def index
     @product_brands = ProductBrand.all
 
-    render json: ProductBrandSerializer.new(@product_brands)
+    render json: ProductBrandBlueprint.render(@product_brands)
   end
 
   def show
-    render json: ProductBrandSerializer.new(@product_brand)
+    render json: ProductBrandBlueprint.render(@product_brand)
   end
 
   private

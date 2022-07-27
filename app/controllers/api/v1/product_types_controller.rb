@@ -1,14 +1,14 @@
-class ProductTypesController < ApplicationController
+class Api::V1::ProductTypesController < ApplicationController
   before_action :set_product_type, only: %i[ show update ]
 
   def index
     @product_types = ProductType.all
 
-    render json: ProductTypeSerializer.new(@product_types)
+    render json: ProductTypeBlueprint.render(@product_types)
   end
 
   def show
-    render json: ProductTypeSerializer.new(@product_type)
+    render json: ProductTypeBlueprint.render(@product_type)
   end
 
   private

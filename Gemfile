@@ -47,4 +47,5 @@ group :development do
   # gem "spring"
 end
 
-gem 'jsonapi-serializer'
+gem 'blueprinter'
+gem 'oj'

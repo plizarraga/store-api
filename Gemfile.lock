@@ -74,6 +74,7 @@ GEM
       i18n (>= 1.6, < 2)
       minitest (>= 5.1)
       tzinfo (~> 2.0)
+    blueprinter (0.25.3)
     bootsnap (1.12.0)
       msgpack (~> 1.2)
     builder (3.2.4)
@@ -91,8 +92,6 @@ GEM
     io-console (0.5.11)
     irb (1.4.1)
       reline (>= 0.3.0)
-    jsonapi-serializer (2.2.0)
-      activesupport (>= 4.2)
     loofah (2.18.0)
       crass (~> 1.0.2)
       nokogiri (>= 1.5.9)
@@ -120,6 +119,7 @@ GEM
     nio4r (2.5.8)
     nokogiri (1.13.8-arm64-darwin)
       racc (~> 1.4)
+    oj (3.13.18)
     pg (1.4.1)
     puma (5.6.4)
       nio4r (~> 2.0)
@@ -170,10 +170,11 @@ PLATFORMS
   arm64-darwin-21
 
 DEPENDENCIES
+  blueprinter
   bootsnap
   debug
   faker!
-  jsonapi-serializer
+  oj
   pg (~> 1.1)
   puma (~> 5.0)
   rails (~> 7.0.3, >= 7.0.3.1)

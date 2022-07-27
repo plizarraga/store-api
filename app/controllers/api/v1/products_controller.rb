@@ -1,19 +1,16 @@
-class ProductsController < ApplicationController
+class Api::V1::ProductsController < ApplicationController
   before_action :set_product, only: %i[ show update destroy ]
 
-  # GET /products
   def index
-    @products = Product.all
+    @products = Product.includes(:product_type, :product_brand)
 
-    render json: ProductSerializer.new(@products)
+    render json: ProductBlueprint.render(@products)
   end
 
-  # GET /products/1
   def show
-    render json: ProductSerializer.new(@product)
+    render json: ProductBlueprint.render(@product)
   end
 
-  # POST /products
   def create
     @product = Product.new(product_params)
 
@@ -24,7 +21,6 @@ class ProductsController < ApplicationController
     end
   end
 
-  # PATCH/PUT /products/1
   def update
     if @product.update(product_params)
       render json: @product
@@ -33,18 +29,15 @@ class ProductsController < ApplicationController
     end
   end
 
-  # DELETE /products/1
   def destroy
     @product.destroy
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
     def set_product
-      @product = Product.find(params[:id])
+      @product = Product.includes(:product_type, :product_brand).find(params[:id])
     end
 
-    # Only allow a list of trusted parameters through.
     def product_params
       params.require(:product).permit(:name, :description, :price, :product_type_id, :product_brand_id)
     end
