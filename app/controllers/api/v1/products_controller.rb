@@ -10,9 +10,10 @@ class Api::V1::ProductsController < Api::V1::BaseController
     pageIndex = params[:pageIndex].present? ? params[:pageIndex].to_i : 0
 
     @products = Product.includes(:product_type, :product_brand)
-                        .by_brand_id(params[:brandId])
-                        .by_type_id(params[:typeId])
-                        .order(set_order_options)
+      .by_name(params[:search])
+      .by_brand_id(params[:brandId])
+      .by_type_id(params[:typeId])
+      .order(set_order_options)
     
     total_records = @products.count
     
