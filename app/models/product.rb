@@ -1,4 +1,6 @@
 class Product < ApplicationRecord
+  # scope :c_order, -> { order(name: :asc) }
+
   # Relationships
   belongs_to :product_type
   belongs_to :product_brand
@@ -6,4 +8,5 @@ class Product < ApplicationRecord
   # Validations
   validates :name, presence: true  
   validates :description, presence: true  
+
 end
