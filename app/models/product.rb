@@ -1,7 +1,7 @@
 class Product < ApplicationRecord
-  scope :by_brand_id, ->(brand_id) { where(product_brand_id: brand_id) if brand_id.present? }
-  scope :by_type_id, ->(type_id) { where(product_type_id: type_id) if type_id.present? }
-  scope :by_name, ->(searchTerm) { where("lower(name) LIKE ?", "%#{searchTerm.downcase}%") if searchTerm.present? } 
+  # scope :by_brand_id, ->(brand_id) { where(product_brand_id: brand_id) if brand_id.present? }
+  # scope :by_type_id, ->(type_id) { where(product_type_id: type_id) if type_id.present? }
+  # scope :by_name, ->(searchTerm) { where("lower(name) LIKE ?", "%#{searchTerm.downcase}%") if searchTerm.present? } 
 
   # Relationships
   belongs_to :product_type
