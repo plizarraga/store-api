@@ -2,17 +2,24 @@ class Api::V1::ProductsController < Api::V1::BaseController
   before_action :set_product, only: %i[ show update destroy ]
   
   def index
-    # find_options = {:per_page => params[:per_page] || 20,
-    #    :page => params[:per_page] || 1),
-    #    :order => order
-    # }
+    pageSize = 5
+    if params[:pageSize].present?
+      pageSize = params[:pageSize].to_i > 5 ? 5 : params[:pageSize].to_i
+    end
+
+    pageIndex = params[:pageIndex].present? ? params[:pageIndex].to_i : 0
 
     @products = Product.includes(:product_type, :product_brand)
                         .by_brand_id(params[:brandId])
                         .by_type_id(params[:typeId])
                         .order(set_order_options)
+    
+    total_records = @products.count
+    
+    @paged_records = @products.limit(pageSize.to_i).offset(pageIndex.to_i * pageSize.to_i)
 
-    render json: ProductBlueprint.render(@products)
+
+    render json: ProductBlueprint.render(@paged_records, root: :data, meta: { count: total_records, pageIndex: pageIndex, pageSize: pageSize})
   end
 
   def show
