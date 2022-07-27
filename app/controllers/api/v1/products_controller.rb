@@ -36,6 +36,10 @@ class Api::V1::ProductsController < Api::V1::BaseController
       params.require(:product).permit(:name, :description, :price, :product_type_id, :product_brand_id)
     end
 
+    def set_order_options
+      Product::ORDER_BY.fetch(params[:sort]&.to_sym, Product::ORDER_BY[:nameAsc])
+    end
+
     def set_categories_filter
       product_brand_id = params[:brandId] 
       product_type_id = params[:typeId] 
