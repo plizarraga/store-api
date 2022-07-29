@@ -2,9 +2,11 @@ class Api::V1::ProductsController < Api::V1::BaseController
   before_action :set_product, only: %i[ show ]
   
   def index
-    pageSize = 5
+    page_max_size = 6
+    pageSize = page_max_size
+
     if params[:pageSize].present?
-      pageSize = params[:pageSize].to_i > 5 ? 5 : params[:pageSize].to_i
+      pageSize = params[:pageSize].to_i > 6 ? page_max_size : params[:pageSize].to_i
     end
 
     page_index = params[:pageIndex].present? ? (params[:pageIndex].to_i - 1) : 0
