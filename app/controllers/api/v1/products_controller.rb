@@ -7,16 +7,17 @@ class Api::V1::ProductsController < Api::V1::BaseController
       pageSize = params[:pageSize].to_i > 5 ? 5 : params[:pageSize].to_i
     end
 
-    pageIndex = params[:pageIndex].present? ? params[:pageIndex].to_i : 0
+    page_index = params[:pageIndex].present? ? (params[:pageIndex].to_i - 1) : 0
     
     products = FindProducts.new.call(params)
     
     total_records = products.count
     
-    @paged_records = products.limit(pageSize.to_i).offset(pageIndex.to_i * pageSize.to_i)
+    @paged_records = products.limit(pageSize.to_i).offset(page_index.to_i * pageSize.to_i)
 
+    page_index = page_index + 1
 
-    render json: ProductBlueprint.render(@paged_records, root: :data, meta: { count: total_records, pageIndex: pageIndex, pageSize: pageSize})
+    render json: ProductBlueprint.render(@paged_records, root: :data, meta: { count: total_records, pageIndex: page_index, pageSize: pageSize})
   end
 
   def show
