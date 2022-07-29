@@ -197,9 +197,9 @@
       "product_type_id": 3,
       "product_brand_id": 1
     }
-].each do |item|
+].each.with_index(1) do |item, index|
     Product.create(
-        name: item[:name],
+        name: "#{index+1} - #{item[:name]}",
         description: item[:description],
         price: item[:price],
         picture_url: item[:picture_url],
