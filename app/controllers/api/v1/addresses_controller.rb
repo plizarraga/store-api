@@ -6,7 +6,7 @@ class Api::V1::AddressesController < Api::V1::BaseController
     if address.update(address_params)
       render json: AddressBlueprint.render(@current_user.address), status: :ok
     else
-      render json: { message: "Error on updating the address" }, status: :unprocessable_entity
+      render json: address.errors, status: :unprocessable_entity
     end
   end
 
