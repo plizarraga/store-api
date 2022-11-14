@@ -7,7 +7,7 @@ class Api::V1::BaseController < ApplicationController
         jwt = get_jwt_from_headers(request)
         begin
             jwt_decoded = jwt_decode(jwt)
-            @current_user = User.find(jwt_decoded[:user_id])
+            @current_user = User.includes(:address).find(jwt_decoded[:user_id])
         rescue ActiveRecord::RecordNotFound => e
             render json: { message: e.message }, status: :unauthorized
         rescue JWT::DecodeError => e
