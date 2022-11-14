@@ -4,10 +4,9 @@ class Api::V1::BaseController < ApplicationController
     
     private
     def authorize_request
-        authorization_header = request.headers['Authorization']
-        json_web_token = authorization_header.split(' ').last if authorization_header
+        jwt = get_jwt_from_headers(request)
         begin
-            jwt_decoded = jwt_decode(json_web_token)
+            jwt_decoded = jwt_decode(jwt)
             @current_user = User.find(jwt_decoded[:user_id])
         rescue ActiveRecord::RecordNotFound => e
             render json: { message: e.message }, status: :unauthorized

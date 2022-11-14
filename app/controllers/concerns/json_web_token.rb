@@ -12,16 +12,10 @@ module JsonWebToken
         decoded = JWT.decode(token, SECRET_KEY)[0]
         HashWithIndifferentAccess.new decoded
     end
-
-    # def decoded_token
-    #     header = request.headers['Authorization']
-    #     if header
-    #         token = header.split(" ")[1]
-    #         begin
-    #             JWT.decode(token, 'hellomars1211')
-    #         rescue JWT::DecodeError
-    #             nil
-    #         end
-    #     end
-    # end
+    
+    def get_jwt_from_headers(request)
+        authorization_header = request.headers['Authorization']
+        return nil unless authorization_header
+        authorization_header.split(' ').last
+    end
 end

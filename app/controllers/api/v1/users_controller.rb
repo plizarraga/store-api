@@ -13,7 +13,8 @@ class Api::V1::UsersController < Api::V1::BaseController
   
   # GET /users/current_user
   def current_user
-    render json: UserBlueprint.render(@current_user), status: :ok
+    jwt = get_jwt_from_headers(request)
+    render json: { email: @current_user.email, name: @current_user.name, token: jwt }, status: :ok
   end
 
   # GET /email-exists
