@@ -1,6 +1,6 @@
 class Api::V1::AddressesController < Api::V1::BaseController
   
-  # PUT /address
+  # PUT /addresses
   def update
     address = @current_user.address
     if address.update(address_params)
@@ -8,6 +8,11 @@ class Api::V1::AddressesController < Api::V1::BaseController
     else
       render json: address.errors, status: :unprocessable_entity
     end
+  end
+
+  # GET /addresses
+  def show
+    render json: AddressBlueprint.render(@current_user.address), status: :ok
   end
 
   private

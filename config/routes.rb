@@ -5,6 +5,7 @@ Rails.application.routes.draw do
       get 'users/current-user', to: 'users#current_user'
       get 'users/email-exists', to: 'users#email_exists'
       put '/addresses', to: 'addresses#update'
+      get '/addresses', to: 'addresses#show'
       resources :sessions, only: %i[create]
       resources :products, only: %i[index show]
       resources :product_brands, only: %i[index show]
