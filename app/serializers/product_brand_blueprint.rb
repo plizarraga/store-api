@@ -1,5 +1,5 @@
 class ProductBrandBlueprint < Blueprinter::Base
-    identifier :id
-      
-    fields :name
-  end
+  identifier :id
+
+  fields :name
+end
