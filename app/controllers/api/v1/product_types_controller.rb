@@ -1,4 +1,5 @@
 class Api::V1::ProductTypesController < Api::V1::BaseController
+  skip_before_action :authorize_request, only: [:index, :show]
   before_action :set_product_type, only: %i[ show update ]
 
   def index

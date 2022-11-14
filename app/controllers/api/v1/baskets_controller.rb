@@ -1,4 +1,6 @@
 class Api::V1::BasketsController < Api::V1::BaseController
+  skip_before_action :authorize_request, only: [:show, :create, :destroy]
+
   def show
     result = BasketManager::GetBasket.call(params[:id])
 
