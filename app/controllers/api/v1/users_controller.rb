@@ -1,5 +1,5 @@
 class Api::V1::UsersController < Api::V1::BaseController
-  skip_before_action :authorize_request, only: [:create]
+  skip_before_action :authorize_request, only: [:create, :email_exists]
   before_action :set_user, only: [:show, :destroy]
   
   # GET /users/:id
@@ -15,6 +15,12 @@ class Api::V1::UsersController < Api::V1::BaseController
     else
       render json: @user.errors, status: :unprocessable_entity
     end
+  end
+
+  # GET /email-exists
+  def email_exists
+    email_found = !!User.find_by_email(params[:email])
+    render json: email_found, status: :ok
   end
 
   private
