@@ -9,7 +9,7 @@ class Api::V1::SessionsController < Api::V1::BaseController
       token = jwt_encode(user_id: user.id)
       render json: { email: user.email, name: user.name, token: token }, status: :ok
     else
-      render json: { error: 'Unauthorized' }, status: :unauthorized
+      render json: { message: 'Unauthorized' }, status: :unauthorized
     end
   end
 end
