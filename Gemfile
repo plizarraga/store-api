@@ -51,3 +51,4 @@ gem 'blueprinter'
 gem 'oj'
 gem "bcrypt", "~> 3.1.7"
 gem 'jwt'
+gem 'dry-schema'

@@ -33,7 +33,6 @@ class Api::V1::BasketsController < Api::V1::BaseController
 
   private
     def basket_params
-      params.require(:basket)
-        .permit(:id, items: [ :id, :name, :productName, :price, :quantity, :pictureUrl, :brand, :type ])
+      params.require(:basket).permit(:id, items: [ :id, :name, :productName, :price, :quantity, :pictureUrl, :brand, :type ])
     end
 end

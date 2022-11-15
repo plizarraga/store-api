@@ -11,6 +11,9 @@ module BasketManager
 
         def call
             begin
+                basket = BasketSchema::Schema.call(@params.to_h)
+                return { status: FAILURE, error: basket.errors.to_h } unless basket.success?
+
                 redis = Redis.new
                 result = redis.set(@params[:id], @params.to_json)
 
@@ -22,7 +25,6 @@ module BasketManager
 
                 # => Timed out connecting to Redis on 10.0.1.1:6380
                 # puts e.message
-                e.message
                 { status: FAILURE, error: e.message }
             end
         end
