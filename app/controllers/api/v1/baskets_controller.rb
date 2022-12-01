@@ -17,7 +17,8 @@ class Api::V1::BasketsController < Api::V1::BaseController
     if result[:status] == :success
       render json: result[:data], status: :created
     else
-      render json: { message: result[:error] }, status: :unprocessable_entity
+      # TODO - check the response
+      render json: { errors: result[:error] }, status: :unprocessable_entity
     end
   end
 

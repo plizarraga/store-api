@@ -7,7 +7,7 @@ class Api::V1::UsersController < Api::V1::BaseController
     if @user.save
       render json: UserBlueprint.render(@user), status: :created
     else
-      render json: @user.errors, status: :unprocessable_entity
+      render json: { errors: @user.errors.full_messages }, status: :unprocessable_entity
     end
   end
   
@@ -25,6 +25,6 @@ class Api::V1::UsersController < Api::V1::BaseController
 
   private
   def user_params
-    params.require(:user).permit(:email, :name, :password, :password_confirmation)
+    params.require(:user).permit(:name, :email, :password, :password_confirmation)
   end
 end
