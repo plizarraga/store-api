@@ -1,4 +1,5 @@
 class Api::V1::UsersController < Api::V1::BaseController
+  before_action :snake_case_params, only: [:create]
   skip_before_action :authorize_request, only: [:create, :email_exists]
   
   # POST /users
@@ -26,5 +27,10 @@ class Api::V1::UsersController < Api::V1::BaseController
   private
   def user_params
     params.require(:user).permit(:name, :email, :password, :password_confirmation)
+  end
+
+  # snake_case the query params and all other params
+  def snake_case_params
+    request.parameters.deep_transform_keys!(&:underscore)
   end
 end
