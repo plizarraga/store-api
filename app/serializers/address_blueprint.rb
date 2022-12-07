@@ -1,3 +1,3 @@
 class AddressBlueprint < Blueprinter::Base
-  fields :street, :city, :state, :zipcode
+  fields :first_name, :last_name, :street, :city, :state, :zipcode
 end
