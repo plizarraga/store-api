@@ -220,21 +220,21 @@
     "short_name": "UPS2",
     "description": "Get it within 5 days",
     "delivery_time": "2-5 Days",
-    "Price": 5
+    "price": 5
   },
   {
     "short_name": "UPS3",
     "description": "Slower but cheap",
     "delivery_time": "5-10 Days",
-    "Price": 2
+    "price": 2
   },
   {
     "short_name": "FREE",
     "description": "Free! You get what you pay for",
     "delivery_time": "1-2 Weeks",
-    "Price": 0
+    "price": 0
   }
-].each.with_index(1) do |item, index|
+].each do |item|
   DeliveryMethod.create(
       short_name: item[:short_name],
       description: item[:description],

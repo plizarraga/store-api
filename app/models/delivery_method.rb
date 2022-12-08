@@ -1,3 +1,3 @@
 class DeliveryMethod < ApplicationRecord
-    validates :short_name, :description, :price, :delivery_time, presence: true
+    validates_presence_of :short_name, :description, :price, :delivery_time
 end
