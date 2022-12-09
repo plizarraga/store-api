@@ -1,8 +1,15 @@
 class OrderBlueprint < Blueprinter::Base
   identifier :id
 
-  fields :buyer_email, :order_date, :status,
-    :payment_intent_id, :delivery_method_id
+  fields :buyer_email, :order_date, :status
+
+  field :delivery_method do |order, options|
+    order.delivery_method.short_name
+  end
+
+  field :shipping_price do |order, options|
+    order.delivery_method.price.to_f
+  end
   
   field :subtotal do |order, options|
     order.subtotal.to_f
