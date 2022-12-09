@@ -15,6 +15,10 @@ class OrderBlueprint < Blueprinter::Base
     order.subtotal.to_f
   end
 
+  field :total do |order, options|
+    (order.delivery_method.price + order.subtotal).to_f
+  end
+
   field :shipToAddress do |order, options|
     {
       first_name: order.ship_to_address_first_name,
