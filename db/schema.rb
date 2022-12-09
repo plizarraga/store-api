@@ -38,7 +38,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_09_002106) do
 
   create_table "order_items", force: :cascade do |t|
     t.integer "product_item_id"
-    t.string "product_itme_name"
+    t.string "product_item_name"
     t.string "product_item_picture_url"
     t.decimal "price", precision: 5, scale: 2, null: false
     t.integer "quantity", null: false
@@ -50,7 +50,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_09_002106) do
 
   create_table "orders", force: :cascade do |t|
     t.string "buyer_email", null: false
-    t.date "order_date", null: false
+    t.datetime "order_date", default: -> { "CURRENT_TIMESTAMP" }, null: false
     t.string "ship_to_address_first_name", null: false
     t.string "ship_to_address_last_name", null: false
     t.string "ship_to_address_street", null: false

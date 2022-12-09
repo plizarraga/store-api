@@ -209,42 +209,67 @@
 # end
 
 # Delivery Methods
-[
-  {
-    "short_name": "UPS1",
-    "description": "Fastest delivery time",
-    "delivery_time": "1-2 Days",
-    "price": 10
-  },
-  {
-    "short_name": "UPS2",
-    "description": "Get it within 5 days",
-    "delivery_time": "2-5 Days",
-    "price": 5
-  },
-  {
-    "short_name": "UPS3",
-    "description": "Slower but cheap",
-    "delivery_time": "5-10 Days",
-    "price": 2
-  },
-  {
-    "short_name": "FREE",
-    "description": "Free! You get what you pay for",
-    "delivery_time": "1-2 Weeks",
-    "price": 0
-  }
-].each do |item|
-  DeliveryMethod.create(
-      short_name: item[:short_name],
-      description: item[:description],
-      delivery_time: item[:delivery_time],
-      price: item[:price]
+# [
+#   {
+#     "short_name": "UPS1",
+#     "description": "Fastest delivery time",
+#     "delivery_time": "1-2 Days",
+#     "price": 10
+#   },
+#   {
+#     "short_name": "UPS2",
+#     "description": "Get it within 5 days",
+#     "delivery_time": "2-5 Days",
+#     "price": 5
+#   },
+#   {
+#     "short_name": "UPS3",
+#     "description": "Slower but cheap",
+#     "delivery_time": "5-10 Days",
+#     "price": 2
+#   },
+#   {
+#     "short_name": "FREE",
+#     "description": "Free! You get what you pay for",
+#     "delivery_time": "1-2 Weeks",
+#     "price": 0
+#   }
+# ].each do |item|
+#   DeliveryMethod.create(
+#       short_name: item[:short_name],
+#       description: item[:description],
+#       delivery_time: item[:delivery_time],
+#       price: item[:price]
+#   )
+# end
+
+# Create order
+  order_one = Order.create(
+    buyer_email: "test@test.com",
+    ship_to_address_first_name: Faker::Name.first_name,
+    ship_to_address_last_name: Faker::Name.last_name,
+    ship_to_address_street: Faker::Address.street_name,
+    ship_to_address_city: Faker::Address.city,
+    ship_to_address_state: Faker::Address.state,
+    ship_to_address_zipcode: Faker::Address.zip,
+    delivery_method: DeliveryMethod.last,
+    subtotal: 100,
+    status: 0
   )
-end
 
+  # Create order items
+  product = Product.last
 
-# 100.times do
+  order_item_one = OrderItem.create(
+    product_item_id: product.id,
+    product_item_name: product.name,
+    product_item_picture_url: product.picture_url,
+    price: product.price,
+    quantity: 1,
+    order_id: order_one.id
+  )
+
+  # 100.times do
 #     Product.create(
 #         name: Faker::Commerce::unique.product_name, 
 #         description: Faker::Lorem.paragraph, 
