@@ -10,6 +10,8 @@ Rails.application.routes.draw do
 
       resources :delivery_methods, only: %i[index]
 
+      resources :orders, only: %i[index show create]
+
       resources :sessions, only: %i[create]
       resources :products, only: %i[index show]
       resources :product_brands, only: %i[index show]

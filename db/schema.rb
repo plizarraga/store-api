@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_12_08_214031) do
+ActiveRecord::Schema[7.0].define(version: 2022_12_08_225359) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -34,6 +34,24 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_08_214031) do
     t.decimal "price", precision: 5, scale: 2
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "orders", force: :cascade do |t|
+    t.string "buyer_email", null: false
+    t.date "order_date", null: false
+    t.string "ship_to_address_first_name", null: false
+    t.string "ship_to_address_last_name", null: false
+    t.string "ship_to_address_street", null: false
+    t.string "ship_to_address_city", null: false
+    t.string "ship_to_address_state", null: false
+    t.string "ship_to_address_zipcode", null: false
+    t.bigint "delivery_method_id", null: false
+    t.decimal "subtotal", null: false
+    t.integer "status", null: false
+    t.integer "payment_intent_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["delivery_method_id"], name: "index_orders_on_delivery_method_id"
   end
 
   create_table "product_brands", force: :cascade do |t|
@@ -74,6 +92,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_08_214031) do
   end
 
   add_foreign_key "addresses", "users"
+  add_foreign_key "orders", "delivery_methods"
   add_foreign_key "products", "product_brands"
   add_foreign_key "products", "product_types"
 end
