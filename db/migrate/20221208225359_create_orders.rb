@@ -11,7 +11,7 @@ class CreateOrders < ActiveRecord::Migration[7.0]
       t.string :ship_to_address_zipcode, null: false
       t.references :delivery_method, null: false, foreign_key: true
       t.decimal :subtotal, null: false
-      t.integer :status, null: false
+      t.integer :status, null: false, default: 0
       t.integer :payment_intent_id, null: true
 
       t.timestamps

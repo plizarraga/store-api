@@ -59,7 +59,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_09_002106) do
     t.string "ship_to_address_zipcode", null: false
     t.bigint "delivery_method_id", null: false
     t.decimal "subtotal", null: false
-    t.integer "status", null: false
+    t.integer "status", default: 0, null: false
     t.integer "payment_intent_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
