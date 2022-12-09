@@ -4,33 +4,32 @@ class Api::V1::OrdersController < Api::V1::BaseController
 
   # GET /orders
   def index
-    @orders = Order.all
+    @orders = Order.includes(:delivery_method, :order_items).where(buyer_email: @current_user.email)
 
     render json: OrderBlueprint.render(@orders)
   end
 
   # GET /orders/1
   def show
-    render json: @order
+    render json: OrderBlueprint.render(@order)
   end
 
   # POST /orders
   def create
-    render json: {}, status: :created
+    buyer_email = @current_user.email
+    result = OrderManager::CreateOrder.call(buyer_email, params)
 
-    # @order = Order.new(order_params)
-
-    # if @order.save
-    #   render json: @order, status: :created
-    # else
-    #   render json: @order.errors, status: :unprocessable_entity
-    # end
+    if result[:status] == :success
+      render json: OrderBlueprint.render(result[:data]), status: :created
+    else
+      render json: { message: result[:error] }, status: :unprocessable_entity
+    end
   end
 
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_order
-      @order = Order.find(params[:id])
+      @order = Order.where(id: params[:id], buyer_email: @current_user.email)
     end
 
     # Only allow a list of trusted parameters through.

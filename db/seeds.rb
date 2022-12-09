@@ -244,30 +244,41 @@
 # end
 
 # Create order
-  order_one = Order.create(
-    buyer_email: "test@test.com",
-    ship_to_address_first_name: Faker::Name.first_name,
-    ship_to_address_last_name: Faker::Name.last_name,
-    ship_to_address_street: Faker::Address.street_name,
-    ship_to_address_city: Faker::Address.city,
-    ship_to_address_state: Faker::Address.state,
-    ship_to_address_zipcode: Faker::Address.zip,
-    delivery_method: DeliveryMethod.last,
-    subtotal: 100,
-    status: 0
-  )
+  # order_one = Order.create(
+  #   buyer_email: "test@test.com",
+  #   ship_to_address_first_name: Faker::Name.first_name,
+  #   ship_to_address_last_name: Faker::Name.last_name,
+  #   ship_to_address_street: Faker::Address.street_name,
+  #   ship_to_address_city: Faker::Address.city,
+  #   ship_to_address_state: Faker::Address.state,
+  #   ship_to_address_zipcode: Faker::Address.zip,
+  #   delivery_method: DeliveryMethod.last,
+  #   subtotal: 100,
+  #   status: 0
+  # )
 
   # Create order items
-  product = Product.last
+  # product_first = Product.first
+  # product_last = Product.last
+  
+  # OrderItem.create(
+  #   product_item_id: product_first.id,
+  #   product_item_name: product_first.name,
+  #   product_item_picture_url: product_first.picture_url,
+  #   price: product_first.price,
+  #   quantity: 1,
+  #   order_id: order_one.id
+  # )
 
-  order_item_one = OrderItem.create(
-    product_item_id: product.id,
-    product_item_name: product.name,
-    product_item_picture_url: product.picture_url,
-    price: product.price,
-    quantity: 1,
-    order_id: order_one.id
-  )
+  # OrderItem.create(
+  #   product_item_id: product_last.id,
+  #   product_item_name: product_last.name,
+  #   product_item_picture_url: product_last.picture_url,
+  #   price: product_last.price,
+  #   quantity: 1,
+  #   order_id: order_one.id
+  # )
+  
 
   # 100.times do
 #     Product.create(

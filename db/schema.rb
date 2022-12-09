@@ -50,7 +50,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_09_002106) do
 
   create_table "orders", force: :cascade do |t|
     t.string "buyer_email", null: false
-    t.datetime "order_date", default: -> { "CURRENT_TIMESTAMP" }, null: false
+    t.datetime "order_date", null: false
     t.string "ship_to_address_first_name", null: false
     t.string "ship_to_address_last_name", null: false
     t.string "ship_to_address_street", null: false
@@ -63,6 +63,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_09_002106) do
     t.integer "payment_intent_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["buyer_email"], name: "index_orders_on_buyer_email"
     t.index ["delivery_method_id"], name: "index_orders_on_delivery_method_id"
   end
 

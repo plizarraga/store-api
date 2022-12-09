@@ -2,7 +2,7 @@ class CreateOrders < ActiveRecord::Migration[7.0]
   def change
     create_table :orders do |t|
       t.string :buyer_email, null: false
-      t.datetime :order_date, null: false, default: -> { 'CURRENT_TIMESTAMP' }
+      t.datetime :order_date, null: false
       t.string :ship_to_address_first_name, null: false
       t.string :ship_to_address_last_name, null: false
       t.string :ship_to_address_street, null: false
@@ -16,5 +16,6 @@ class CreateOrders < ActiveRecord::Migration[7.0]
 
       t.timestamps
     end
+    add_index :orders, :buyer_email
   end
 end
