@@ -53,7 +53,14 @@ module OrderManager
             order.order_items.build(order_items)
 
             if order.save
-                { status: SUCCESS, data: order }
+                # delete basket by id after order created
+                result = BasketManager::DeleteBasket.call(@params[:basket_id])
+
+                if result[:status] == :success
+                  { status: SUCCESS, data: order }
+                else
+                  render json: { message: result[:error] }, status: :not_found
+                end
             else
                 { status: FAILURE, error: order.errors.full_messages }
             end
