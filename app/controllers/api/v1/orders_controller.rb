@@ -29,7 +29,7 @@ class Api::V1::OrdersController < Api::V1::BaseController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_order
-      @order = Order.where(id: params[:id], buyer_email: @current_user.email)
+      @order = Order.find_by({ id: params[:id], buyer_email: @current_user.email })
     end
 
     # Only allow a list of trusted parameters through.
