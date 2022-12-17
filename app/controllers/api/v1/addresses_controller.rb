@@ -1,4 +1,5 @@
 class Api::V1::AddressesController < Api::V1::BaseController
+  before_action :snake_case_params, only: [:update]
   
   # PUT /addresses
   def update
@@ -33,5 +34,9 @@ class Api::V1::AddressesController < Api::V1::BaseController
   private
   def address_params
     params.require(:address).permit(:first_name, :last_name, :street, :city, :state, :zipcode)
+  end
+
+  def snake_case_params
+    request.parameters.deep_transform_keys!(&:underscore)
   end
 end
