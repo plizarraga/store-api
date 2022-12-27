@@ -7,6 +7,8 @@ Rails.application.routes.draw do
       
       put '/addresses', to: 'addresses#update'
       get '/addresses', to: 'addresses#show'
+      
+      post 'payments/:basket_id', to: 'payments#create'
 
       resources :delivery_methods, only: %i[index]
 

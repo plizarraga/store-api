@@ -187,6 +187,7 @@ GEM
     redis (4.7.1)
     reline (0.3.1)
       io-console (~> 0.5)
+    stripe (8.0.0)
     strscan (3.0.4)
     thor (1.2.1)
     timeout (0.3.0)
@@ -214,6 +215,7 @@ DEPENDENCIES
   rack-cors
   rails (~> 7.0.3, >= 7.0.3.1)
   redis (~> 4.0)
+  stripe
   tzinfo-data
 
 RUBY VERSION

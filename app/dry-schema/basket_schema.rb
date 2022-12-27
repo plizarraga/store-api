@@ -14,5 +14,8 @@ module BasketSchema
 				required(:type).filled(:string)
 			end
 		end
+		optional(:delivery_method_id).filled(:integer)
+		optional(:client_secret).filled(:string)
+		optional(:payment_intent_id).filled(:string)
 	end
 end

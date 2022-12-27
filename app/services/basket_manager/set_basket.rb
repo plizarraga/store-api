@@ -15,7 +15,7 @@ module BasketManager
                 return { status: FAILURE, error: basket.errors.to_h } unless basket.success?
 
                 redis = Redis.new
-                result = redis.set(@params[:id], @params.to_json)
+                result = redis.set(@params["id"], @params.to_json)
 
                 return { status: FAILURE, error: "Error trying to save basket" } unless "OK"
                 { status: SUCCESS, data: @params }
