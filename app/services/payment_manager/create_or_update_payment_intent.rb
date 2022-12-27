@@ -28,7 +28,7 @@ module PaymentManager
                 product = Product.find(item["id"])
                
                 if product.price != item["price"]
-                    item["price"] = product.price
+                    item["price"] = product.price.to_f
                 end
             end
 
