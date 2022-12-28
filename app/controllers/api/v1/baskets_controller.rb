@@ -1,4 +1,5 @@
 class Api::V1::BasketsController < Api::V1::BaseController
+  before_action :snake_case_params, only: [:create]
   skip_before_action :authorize_request, only: [:show, :create, :destroy]
 
   def show
@@ -34,6 +35,16 @@ class Api::V1::BasketsController < Api::V1::BaseController
 
   private
     def basket_params
-      params.require(:basket).permit(:id, :payment_intent_id, :client_secret, items: [ :id, :name, :productName, :price, :quantity, :pictureUrl, :brand, :type ])
+      params.require(:basket).permit(
+        :id, 
+        :delivery_method_id, 
+        :payment_intent_id, 
+        :client_secret, 
+        items: [ :id, :name, :product_name, :price, :quantity, :picture_url, :brand, :type ]
+      )
+    end
+
+    def snake_case_params
+      request.parameters.deep_transform_keys!(&:underscore)
     end
 end

@@ -6,10 +6,10 @@ module BasketSchema
 		required(:items).value(:array, min_size?: 1).each do
 			hash do
 				required(:id).filled(:integer)
-				required(:productName).filled(:string)
+				required(:product_name).filled(:string)
 				required(:price).filled(:integer, gteq?: 0.1)
 				required(:quantity).filled(:int?, gteq?: 1)
-				required(:pictureUrl).filled(:string)
+				required(:picture_url).filled(:string)
 				required(:brand).filled(:string)
 				required(:type).filled(:string)
 			end
