@@ -33,7 +33,9 @@ module PaymentManager
             end
 
             # stripe create or update payment intent
-            if !result[:data]["payment_intent"].blank?
+            p result[:data]
+            if result[:data]["payment_intent_id"].blank?
+                p "Create payment intent"
                 payment_intent = Stripe::PaymentIntent.create({
                     amount: calculate_subtotal(result[:data]["items"], shipping_price),
                     currency: 'usd',
@@ -42,6 +44,7 @@ module PaymentManager
                   result[:data]["payment_intent_id"] = payment_intent.id
                   result[:data]["client_secret"] = payment_intent.client_secret
             else
+                p "Update payment intent"
                 Stripe::PaymentIntent.update(
                     result[:data]["payment_intent_id"],
                     { amount: calculate_subtotal(result[:data]["items"], shipping_price) }
