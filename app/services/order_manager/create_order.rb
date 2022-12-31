@@ -33,7 +33,8 @@ module OrderManager
                 ship_to_address_state: @params["ship_to_address"]["state"],
                 ship_to_address_city: @params["ship_to_address"]["city"],
                 ship_to_address_street: @params["ship_to_address"]["street"],
-                ship_to_address_zipcode: @params["ship_to_address"]["zipcode"]
+                ship_to_address_zipcode: @params["ship_to_address"]["zipcode"],
+                payment_intent_id: result[:data]["payment_intent_id"],
             })
             
             # Create order items
@@ -52,15 +53,28 @@ module OrderManager
 
             order.order_items.build(order_items)
 
-            if order.save
-                # delete basket by id after order created
-                result = BasketManager::DeleteBasket.call(@params[:basket_id])
+            # check if order exists
+            order_exists = Order.find_by(payment_intent_id: result[:data]["payment_intent_id"])
 
-                if result[:status] == :success
-                  { status: SUCCESS, data: order }
-                else
-                  render json: { message: result[:error] }, status: :not_found
-                end
+            # delete order exists and create payment intent
+            if order_exists.present?
+                order_exists.destroy
+                result = PaymentManager::CreateOrUpdatePaymentIntent.call(@params[:basket_id])
+                return { status: FAILURE, errors: result[:error] } unless result[:status] == :success
+            end
+
+            # Create order
+            if order.save
+                { status: SUCCESS, data: order }
+
+                # Delete basket by id after order created
+                # result = BasketManager::DeleteBasket.call(@params[:basket_id])
+
+                # if result[:status] == :success
+                #   { status: SUCCESS, data: order }
+                # else
+                #   render json: { message: result[:error] }, status: :not_found
+                # end
             else
                 { status: FAILURE, error: order.errors.full_messages }
             end

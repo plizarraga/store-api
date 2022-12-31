@@ -33,7 +33,6 @@ module PaymentManager
             end
 
             # stripe create or update payment intent
-            p result[:data]
             if result[:data]["payment_intent_id"].blank?
                 p "Create payment intent"
                 payment_intent = Stripe::PaymentIntent.create({
@@ -50,7 +49,7 @@ module PaymentManager
                     { amount: calculate_subtotal(result[:data]["items"], shipping_price) }
                 )
             end
-
+            
             # Update basket
             result = BasketManager::SetBasket.call(result[:data])
 

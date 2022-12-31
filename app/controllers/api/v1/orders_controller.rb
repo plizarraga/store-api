@@ -4,7 +4,10 @@ class Api::V1::OrdersController < Api::V1::BaseController
 
   # GET /orders
   def index
-    @orders = Order.includes(:delivery_method, :order_items).where(buyer_email: @current_user.email)
+    @orders = Order
+                .includes(:delivery_method, :order_items)
+                .where(buyer_email: @current_user.email)
+                .order(created_at: :desc)
 
     render json: OrderBlueprint.render(@orders)
   end

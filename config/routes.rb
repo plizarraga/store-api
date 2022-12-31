@@ -9,7 +9,9 @@ Rails.application.routes.draw do
       get '/addresses', to: 'addresses#show'
       
       post 'payments/:basket_id', to: 'payments#create'
-
+      
+      resources :webhooks, only: %i[create]
+      
       resources :delivery_methods, only: %i[index]
 
       resources :orders, only: %i[index show create]
