@@ -1,7 +1,11 @@
 class OrderBlueprint < Blueprinter::Base
   identifier :id
 
-  fields :buyer_email, :order_date, :status
+  fields :buyer_email, :order_date
+
+  field :status do |order, options|
+    order.status.titleize
+  end
 
   field :delivery_method do |order, options|
     order.delivery_method.short_name
